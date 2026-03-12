@@ -1,94 +1,264 @@
+/* ── Color tokens: light mode (default) ── */
+:root {
+  --bg-page: #f0f2f5;
+  --bg-card: #ffffff;
+  --bg-header: #282c34;
+  --text-primary: #1a1a1a;
+  --text-secondary: #555555;
+  --text-header: #ffffff;
+  --border: #d1d5db;
+  --btn-primary-bg: #0369a1;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #075985;
+  --btn-delete-bg: #b91c1c;
+  --btn-delete-hover: #991b1b;
+  --btn-edit-bg: #0e7490;
+  --btn-edit-hover: #0c6484;
+  --btn-cancel-bg: #6b7280;
+  --btn-cancel-hover: #4b5563;
+  --focus-ring: #005fcc;
+  --priority-high-bg: #fee2e2;
+  --priority-high-text: #7f1d1d;
+  --priority-medium-bg: #fef9c3;
+  --priority-medium-text: #713f12;
+  --priority-low-bg: #dcfce7;
+  --priority-low-text: #14532d;
+  --completed-text: #6b7280;
+}
+
+/* ── Color tokens: dark mode ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-page: #111827;
+    --bg-card: #1f2937;
+    --bg-header: #0f172a;
+    --text-primary: #f3f4f6;
+    --text-secondary: #9ca3af;
+    --text-header: #f8fafc;
+    --border: #374151;
+    --btn-primary-bg: #0ea5e9;
+    --btn-primary-text: #0f172a;
+    --btn-primary-hover: #38bdf8;
+    --btn-delete-bg: #dc2626;
+    --btn-delete-hover: #ef4444;
+    --btn-edit-bg: #0891b2;
+    --btn-edit-hover: #22d3ee;
+    --btn-cancel-bg: #4b5563;
+    --btn-cancel-hover: #6b7280;
+    --focus-ring: #38bdf8;
+    --priority-high-bg: #7f1d1d;
+    --priority-high-text: #fee2e2;
+    --priority-medium-bg: #713f12;
+    --priority-medium-text: #fef9c3;
+    --priority-low-bg: #14532d;
+    --priority-low-text: #dcfce7;
+    --completed-text: #9ca3af;
+  }
+}
+
+/* ── Screen-reader-only utility ── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ── Base ── */
+body {
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 .App {
-  text-align: center;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
 
+/* ── Focus styles (WCAG 2.2 §2.4.11) ── */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ── Header ── */
 .App-header {
-  background-color: #282c34;
-  padding: 20px;
-  color: white;
+  background-color: var(--bg-header);
+  padding: 20px 24px;
+  color: var(--text-header);
   border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.App-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-}
+.App-header h1 { margin: 0; font-size: 1.8rem; }
+.App-header p  { margin: 4px 0 0; opacity: 0.85; }
 
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+/* ── Layout ── */
+main { display: flex; flex-direction: column; gap: 20px; }
 
 section {
-  background-color: #f5f5f5;
+  background-color: var(--bg-card);
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.add-item-section form {
+section h2 {
+  margin: 0 0 12px;
+  color: var(--text-primary);
+}
+
+/* ── Add-task form ── */
+.add-task-form {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 4px;
 }
 
-input {
+/* ── Tasks header (title + sort) ── */
+.tasks-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tasks-header h2 { margin: 0; }
+
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ── Inputs & selects ── */
+input[type="text"],
+input[type="date"] {
   flex: 1;
-  padding: 8px;
-  border: 1px solid #ddd;
+  min-width: 120px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
   border-radius: 4px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1rem;
 }
 
+select {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+/* ── Buttons ── */
 button {
   padding: 8px 16px;
-  background-color: #61dafb;
-  color: #282c34;
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-button:hover {
-  background-color: #21a1c9;
-}
+button:hover { background-color: var(--btn-primary-hover); }
 
+.edit-btn   { background-color: var(--btn-edit-bg);   color: #fff; }
+.edit-btn:hover   { background-color: var(--btn-edit-hover); }
+
+.delete-btn { background-color: var(--btn-delete-bg); color: #fff; }
+.delete-btn:hover { background-color: var(--btn-delete-hover); }
+
+.cancel-btn { background-color: var(--btn-cancel-bg); color: #fff; }
+.cancel-btn:hover { background-color: var(--btn-cancel-hover); }
+
+/* ── Task list ── */
 ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
 }
 
-li:last-child {
-  border-bottom: none;
+li:last-child { border-bottom: none; }
+
+.task-title {
+  flex: 1;
+  font-size: 1rem;
+  color: var(--text-primary);
 }
 
-.delete-btn {
-  background-color: #f44336;
-  color: white;
-  padding: 6px 12px;
-  font-size: 0.8rem;
-  margin-left: 10px;
+.task-completed .task-title {
+  text-decoration: line-through;
+  color: var(--completed-text);
 }
 
-.delete-btn:hover {
-  background-color: #d32f2f;
+.task-actions { display: flex; gap: 6px; margin-left: auto; }
+
+/* ── Priority badges (WCAG contrast ≥ 4.5:1) ── */
+.priority-badge {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
+.priority-high   { background-color: var(--priority-high-bg);   color: var(--priority-high-text); }
+.priority-medium { background-color: var(--priority-medium-bg); color: var(--priority-medium-text); }
+.priority-low    { background-color: var(--priority-low-bg);    color: var(--priority-low-text); }
+
+/* ── Due date ── */
+.due-date {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Inline edit form ── */
+.edit-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* ── Error / status ── */
 .error {
-  color: #d32f2f;
-  font-weight: bold;
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .error { color: #fca5a5; }
 }
