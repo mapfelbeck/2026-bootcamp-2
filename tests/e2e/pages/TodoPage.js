@@ -27,7 +27,7 @@ class TodoPage {
   async editTask(title, newTitle, newPriority = null) {
     await this.getTaskItem(title).getByRole('button', { name: 'Edit' }).click();
     const editForm = this.page.locator('.edit-form');
-    await editForm.getByRole('textbox').fill(newTitle);
+    await editForm.getByRole('textbox', { name: 'Task title' }).fill(newTitle);
     if (newPriority) {
       await editForm.locator('select').selectOption(newPriority);
     }
