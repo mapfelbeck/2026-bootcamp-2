@@ -9,7 +9,6 @@ tasks have priority:
 tasks default to medium priority when created
 the user can add an optional due date to a task
 the user can delete tasks
-the user can edit tasks
 the tasks are sortable in different orders:
  - date added
  - due date
